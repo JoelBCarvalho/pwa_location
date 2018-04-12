@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<title>trilateration.js</title>
+		<script type="text/javascript" src="scripts/trilateration.js"></script>
+	</head>
+	<body>
+		<h1>Trilateration in 3D</h1>
+
+
+		<canvas id="canvas1" width="300" height="300">
+		</canvas>
+
+		<script type="text/javascript">
+			var canvas, ctx;
+
+			function initialize()
+			{
+				canvas = document.getElementById("canvas1");
+				ctx = canvas.getContext("2d");
+
+				delta_compass = 20;
+				p1 = { x: 0, y: 0, z: 0, r: 73 };
+				p2 = { x: -10, y: 20, z: 0, r: 56 };
+				p3 = { x: 11, y: 20, z: 0, r: 77 };
+
+				transport_compass = 20;
+				p4 = trilaterate(p1, p2, p3);
+				console.log(JSON.stringify(p4));
+
+				if (p4 !== null)
+				{
+					ctx.fillStyle = "#111";
+				}
+				else
+				{
+					ctx.fillStyle = "#1500";
+				}
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+								//rose center
+								var centerX = 30;
+								var centerY = 60;
+								var roseDist = 20;
+								ctx.fillStyle = "#f00";
+								ctx.strokeStyle = ctx.fillStyle;
+								ctx.beginPath();
+								ctx.moveTo(centerX,centerY);
+								ctx.lineTo(centerX-roseDist,centerY);
+								ctx.fillText("W",centerX-roseDist,centerY);
+								ctx.stroke();
+								ctx.moveTo(centerX,centerY);
+								ctx.lineTo(centerX+roseDist,centerY);
+								ctx.fillText("E",centerX+roseDist,centerY);
+								ctx.stroke();
+								ctx.moveTo(centerX,centerY);
+								ctx.lineTo(centerX,centerY+roseDist);
+								ctx.fillText("S",centerX,centerY+roseDist);
+								ctx.stroke();
+								ctx.moveTo(centerX,centerY);
+								ctx.lineTo(centerX,centerY-roseDist);
+								ctx.fillText("N",centerX,centerY-roseDist);
+								ctx.stroke();
+
+								//rotate points for direction
+								ctx.rotate(transport_compass*Math.PI/180);
+
+				ctx.fillStyle = "#f00";
+				ctx.strokeStyle = ctx.fillStyle;
+				ctx.fillRect(150 + p1.x - 2, 150 + p1.y - 2, 5, 5);
+				ctx.beginPath();
+				ctx.arc(150 + p1.x, 150 + p1.y, p1.r, 0, 2 * Math.PI);
+				ctx.stroke();
+
+				ctx.fillStyle = "#0f0";
+				ctx.strokeStyle = ctx.fillStyle;
+				ctx.fillRect(150 + p2.x - 2, 150 + p2.y - 2, 5, 5);
+				ctx.beginPath();
+				ctx.arc(150 + p2.x, 150 + p2.y, p2.r, 0, 2 * Math.PI);
+				ctx.stroke();
+
+				ctx.fillStyle = "#00f";
+				ctx.strokeStyle = ctx.fillStyle;
+				ctx.fillRect(150 + p3.x - 2, 150 + p3.y - 2, 5, 5);
+				ctx.beginPath();
+				ctx.arc(150 + p3.x, 150 + p3.y, p3.r, 0, 2 * Math.PI);
+				ctx.stroke();
+
+				if (p4 !== null)
+				{
+					if (p4 instanceof Array)
+					{
+						ctx.fillStyle = "#0ff";
+						ctx.fillRect(150 + p4[0].x - 2, 150 + p4[0].y - 2, 5, 5);
+
+						ctx.fillStyle = "#ff0";
+						ctx.fillRect(150 + p4[1].x - 2, 150 + p4[1].y - 2, 5, 5);
+					}
+					else
+					{
+						ctx.fillStyle = "#fff";
+						ctx.fillRect(150 + p4.x - 2, 150 + p4.y - 2, 5, 5);
+					}
+				}
+			}
+
+			window.onload = initialize;
+		</script>
+	</body>
+</html>

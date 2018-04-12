@@ -1,0 +1,190 @@
+<!--
+ Copyright 2016 Google Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="https://weather-pwa-sample.firebaseapp.com/final/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather PWA</title>
+  <link rel="stylesheet" type="text/css" href="styles/inline.css">
+
+  <!-- TODO add manifest here -->
+
+</head>
+<body>
+  <!--<header class="header">
+    <h1 class="header__title">Weather PWA</h1>
+    <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+    <button id="butAdd" class="headerButton" aria-label="Add"></button>
+  </header>-->
+
+  <main class="main">
+
+    <div class="container">
+      <video class="videosize" id="player" autoplay="autoplay"></video>
+      <canvas class="canvassize" id="canvas"></canvas>
+      <canvas class="canvassize" id="myCanvas"></canvas>
+    </div>
+
+    <div id='debug-orientation-default'></div>
+    <div id='debug-orientation'></div>
+
+    <div class='position row' style="margin-top:300px">
+      <div class='column-33'>
+        <div class='label'>HDG</div>
+        <div id='position-hng'>n/a</div>
+        <div id='expected-hng'>n/a</div>
+      </div
+      ><div class='column-33'>
+        <div class='label'>Lat</div>
+        <div id='position-lat'>&#8943;</div>
+      </div
+      ><div class='column-33'>
+        <div class='label'>Lng</div>
+        <div id='position-lng'>&#8943;</div>
+      </div>
+    </div>
+
+    <div class="navbar" id="myNavbar">
+      <a href="#home" class="active">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+
+  </main>
+
+  <script>
+  function myFunction() {
+      var x = document.getElementById("myNavbar");
+      if (x.className === "navbar") {
+          x.className += " responsive";
+      } else {
+          x.className = "navbar";
+      }
+  }
+  </script>
+
+  <script src="scripts/video.js"></script>
+  <!--<script src="scripts/canvas.js"></script>-->
+  <script src="scripts/orientation.js"></script>
+  <script src="scripts/pinpoint.js"></script>
+  <script src="scripts/trilateration.js"></script>
+  <script src="scripts/compass.js"></script>
+
+<script>
+
+</script>
+<!--
+<video id="player" controls="false"></video>
+<canvas id="canvas"></canvas>
+
+<script>
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  var c = {  //create an object to draw
+    x:0,  //x value
+    y:0,  //y value
+    r:5 //radius
+  }
+  var video = document.getElementById('player');
+
+  var handleSuccess = function(stream) {
+    video.srcObject = stream;
+  };
+
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+      .then(handleSuccess)
+
+  navigator.permissions.query({name:'camera'}).then(function(result) {
+    if (result.state == 'granted') {
+
+    } else if (result.state == 'prompt') {
+
+    } else if (result.state == 'denied') {
+
+    }
+    result.onchange = function() {
+
+    };
+  });
+  video.addEventListener('play', function() {
+    var $this = this; //cache
+    (function loop() {
+      if (!$this.paused && !$this.ended) {
+        ctx.drawImage($this, 0, 0);
+        setTimeout(loop, 1000 / 30); // drawing at 30fps
+      }
+    })();
+  }, 0);
+///////
+var redraw = function(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height); //clear canvas
+  ctx.beginPath();  //draw the object c
+  ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+  ctx.closePath();
+  ctx.fill();
+
+  requestAnimationFrame(redraw);
+}
+function move(){
+  var x = Math.random() // this returns a float between 0.0 and 1.0
+  c.x = x * canvas.width;
+  c.y = x * canvas.height;
+}
+redraw();
+
+setInterval(move, 1000);-->
+</script>
+
+
+<!--
+  <div class="dialog-container">
+    <div class="dialog">
+      <div class="dialog-title">Add new city</div>
+      <div class="dialog-body">
+        <select id="selectCityToAdd">
+          <option value="2357536">Austin, TX</option>
+          <option value="2367105">Boston, MA</option>
+          <option value="2379574">Chicago, IL</option>
+          <option value="2459115">New York, NY</option>
+          <option value="2475687">Portland, OR</option>
+          <option value="2487956">San Francisco, CA</option>
+          <option value="2490383">Seattle, WA</option>
+        </select>
+      </div>
+      <div class="dialog-buttons">
+        <button id="butAddCity" class="button">Add</button>
+        <button id="butAddCancel" class="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loader">
+    <svg viewBox="0 0 32 32" width="32" height="32">
+      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+    </svg>
+  </div>
+-->
+  <!-- Uncomment the line below when ready to test with fake data -->
+  <!--<script src="scripts/app.js" async></script>-->
+
+</body>
+</html>

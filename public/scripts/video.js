@@ -4,7 +4,7 @@ var handleSuccess = function(stream) {
   video.srcObject = stream;
 };
 
-navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+navigator.mediaDevices.getUserMedia({ audio: false, video: true })
     .then(handleSuccess)
 
 navigator.permissions.query({name:'camera'}).then(function(result) {
